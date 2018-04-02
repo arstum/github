@@ -6,3 +6,4 @@
 [Shougo/deoplete.nvim](https://github.com/arstum/github/blob/master/Shougo:deoplete.nvim.md)-----(添加时间: 2018年 3月31日 星期六 11时50分49秒 CST)
 [ybian/smartim](https://github.com/arstum/github/blob/master/ybian:smartim.md)-----(添加时间: 2018年 3月31日 星期六 11时57分56秒 CST)
 [scrooloose/nerdcommenter](https://github.com/arstum/github/blob/master/scrooloose:nerdcommenter.md)-----(添加时间: 2018年 3月31日 星期六 12时01分16秒 CST)
+[junegunn/fzf.vim](https://github.com/arstum/github/blob/master/junegunn:fzf.vim.md)-----(添加时间: 2018年 4月 1日 星期日 02时13分02秒 CST)
