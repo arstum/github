@@ -1,0 +1,3 @@
+sudo spctl --master-disable
+sudo trimforce enable
+vim /Volumes/A/2018-03-18/can/GTD/can.org 
