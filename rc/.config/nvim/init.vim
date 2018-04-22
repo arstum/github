@@ -1,1 +1,0 @@
-/Users/arstum/Documents/Git/coding/cgit/rc/.vimrc
