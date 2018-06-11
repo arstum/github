@@ -1,0 +1,1381 @@
+* quickref.txt * Nvim
+
+
+由Bram Moolenaar提供的VIM参考手册
+
+快速参考指南
+
+* quickref * *内容*
+ 标签主题标签主题〜
+| Q_ct |帮助文件列表
+| Q_lr |动作：左右
+| Q_ud |动作：上下
+| Q_TM |议案：文字对象
+| Q_pa |动作：模式搜索
+| Q_ma |议案：Marks 
+| Q_vm |动作：各种
+| Q_ta |动议：使用标签
+| Q_sc |滚动
+| Q_in |插入：插入文本
+| Q_ai |插入：键
+| Q_ss |插入：特殊键
+| Q_di |插入：Digraphs 
+| Q_si |插入：特殊插入
+| Q_de |更改：删除文本
+| Q_cm |更改：复制和移动
+| Q_ch |更改：更改文本
+| Q_co |更改：Complex 
+| Q_vi |可视模式
+| Q_to |文本对象
+| Q_fo |折页
+| Q_re |重复命令
+| Q_km |密钥映射
+| Q_ab |缩略语
+| Q_op |选项
+| Q_ur |撤消/重做命令
+| Q_et |外部命令
+| Q_qf | Quickfix命令
+| Q_vc |各种命令
+| Q_ce |例如：命令行编辑
+| Q_ra |例如：范围
+| Q_ex |例如：特殊字符
+| Q_st |开始Vim
+| Q_ed |编辑文件
+| Q_fl |使用参数列表
+| Q_wq |写作和戒烟
+| Q_ac |自动命令
+| Q_wi |多窗口命令
+| Q_bu |缓冲区列表命令
+| Q_sy |语法高亮显示
+| Q_gu | GUI命令
+
+-------------------------------------------------- ----------------------------
+N用于表示可以在命令之前给出的可选计数。
+-------------------------------------------------- ----------------------------
+* Q_lr *左右运动
+
+| H |还剩下N小时（还有：CTRL-H，<BS>或<Left>键）
+| L |右键（也是：<Space>或<Right>键）
+| 0 | 0到行中的第一个字符（还有：<Home>键）
+| ^ | ^到行中的第一个非空白字符
+| $ | N $到行中的最后一个字符（N-1行较低） （还有：<End>键）
+| G0 | g0到屏幕行中的第一个字符（不同于“0” 当换行时）
+| G ^ | g ^到屏幕行中的第一个非空白字符（不同 从“^”换行时）
+| G $ | N g $到屏幕行中的最后一个字符（不同于“$” 当换行时）
+| gm | gm到屏幕线的中间
+| bar | N |到第N列（默认：1）
+| F | N {{char}到右边{char}的第N次出现
+| F | N F {char}到左边的{char}的第N次出现
+| T | N {{char}直到{char}的N次出现在右边
+| T | N {{char}直到{char}的第N次出现在左边
+| ; | N;重复最后一次“f”，“F”，“t”或“T”N次
+| ，| N，重复上次的“f”，“F”，“t”或“T”N次 相反的方向
+-------------------------------------------------- ----------------------------
+* Q_ud *上下运动
+
+| k | N k向上N行（另：CTRL-P和<Up>）
+| j | N j向下N行（还有：CTRL-J，CTRL-N，<NL>和<Down>）
+| - | N  - 向上N行，在第一个非空白字符上
+| + | N +向下N行，在第一个非空白字符上（也是： CTRL-M和<CR>）
+| _ | N_向下N-1行，在第一个非空白字符上
+| G | N G转到第N行（默认：最后一行） 非空白字符
+| gg | N gg转到第N行（默认：第一行） 非空白字符
+| N％| N％在文件中向下移动N个百分比; N必须是 给定的，否则就是|％|命令
+| gk |屏蔽N行（与换行时的“k”不同）
+| gj | N gj向下N个屏幕行（与换行时的“j”不同）
+-------------------------------------------------- ----------------------------
+* Q_tm *文本对象运动
+
+| w | N N个单词向前
+| W | N W N空白分隔| WORD | s向前
+| e | N e前进到第N个单词的末尾
+| E | N E前进到第N个空白分隔| WORD |的末尾
+| b | N b N个单词向后
+| B | N B N空白分隔| WORD | s向后
+| ge | N ge倒退到第N个单词的末尾
+| gE |返回到第N个空白分隔| WORD |的末尾
+
+|）| N）N个句子前进
+|（| N( N个句子向后
+|} | N}段前进
+| {| N {N段向后
+|]] | N]]部分的前面部分
+| [| N [[在节的开始处向后的N个部分
+|] [| N] [N部分向前，在部分结束处
+| [] | N [] N部分向后，在部分的末尾
+| [（| N [（N次返回未关闭的'（'
+| [{| N [{N次回到未关闭的'{'
+| [M | N [m N回到方法开始（用于Java）
+| [M | N [M N次返回方法结束（对于Java）
+|]）| N]）N次前进到未关闭的'）'
+|]} | N]} N次前进到未关闭的'}'
+|] M | N] m N次前进到方法的开始（对于Java）
+|] M | N] M N次向前到方法结束（对于Java）
+| [＃| N [＃N次回到未关闭的“#if”或“#else”
+|]＃| N]＃N次前进至未关闭的“#else”或“#endif”
+| [star| N [* N次回到开始评论“/ *”
+|]star| N] * N次前进至评论结束“* /”
+-------------------------------------------------- ----------------------------
+* Q_pa *模式搜索
+
+| / | N / {pattern} [/ [offset]] <CR> 向前搜索{pattern}的第N次出现
+|？| N？{pattern} [？[offset]] <CR> 向后搜索{pattern}的第N次出现
+| / <CR> | N / <CR>在前进方向上重复上次搜索
+| <CR> | N？<CR>重复上次搜索，向后搜索
+| N | N n重复上次搜索
+| N | N N重复上一次搜索，方向相反
+|star| N *向前搜索光标下的标识符
+|＃| N＃向后搜索光标下的标识符
+| gstar | N g *喜欢“*”，但也找到部分匹配
+| G＃| N＃喜欢“＃”，但也找到部分匹配
+| gD | gd转到光标下的标识符的本地声明
+| gd |的gD在光标下获得标识符的全局声明
+
+|模式|搜索模式中的特殊字符
+
+意思是魔术nomagic〜
+匹配任何单个字符。 \。
+匹配行^ ^的开始
+匹配<EOL> $ $
+匹配单词\ <\ <的开头
+匹配单词的结尾\> \>
+匹配范围[a-z] \ [a-z]中的单个字符
+匹配不在范围内的单个字符[^ a-z] \ [^ a-z]
+匹配一个标识符char \ i \ i
+同样但不包括数字\ I \ I
+匹配关键字字符\ k \ k
+同样但不包括数字\ K \ K
+匹配文件名字符\ f \ f
+同上但不包括数字\ F \ F
+匹配可打印字符\ p \ p
+同样但不包括数字\ P \ P
+匹配一个空格字符\ s \ s
+匹配非空白字符\ S \ S
+
+匹配<Esc> \ e \ e
+匹配<Tab> \ t \ t
+匹配<CR> \ r \ r
+匹配<BS> \ b \ b
+
+     匹配0或更多前面的原子* \ *
+     匹配1个或多个前面的原子\ + \ +
+匹配0或1的前面的原子\ = \ =
+匹配前面的原子\ {2,5} \ {2,5}的2到5
+分离两个选项\ | \ |
+将一个模式组合成一个atom \（\）\（\）
+
+|搜索偏移|搜索命令后允许偏移
+
+    [第1列]中的[num] [num]行向下行
+    + [num] [num]行向下，在第1列
+    - 第1列中的[num] [num]向上行
+    e [+ num] [num]个字符在比赛结束的右侧
+    e [-num] [num]个字符在比赛结束的左边
+    s [+ num] [num]个字符在比赛开始的右侧
+    s [-num] [num]个字符在比赛开始的左边
+    b [+ num] [num]与上面的s [+ num]相同（助记符：开始）
+    b [-num] [num]与上面s [-num]相同（助记符：开始）
+    ; {search-command}接下来执行{search-command}
+-------------------------------------------------- ----------------------------
+* Q_ma *标记和动作
+
+| M | m {a-zA-Z}用标记{a-zA-Z}标记当前位置
+|`一个| `{a-z}去标记当前文件中的{a-z}
+|`A | {A-Z}在任何文件中标记{A-Z}
+|`0 | {0-9}转到Vim之前退出的位置
+|``| ``去最后一跳之前的位置
+|`quote| `“在上次编辑此文件时转到该位置
+|`[| `[去往之前操作或放置文本的开始
+|`] | `]到先前操作或放置文本的末尾
+|`<| `<去（先前）视觉区域的开始
+|'> |进入（前一个）可视区域的末尾
+|`| `。转到此文件中最后一次更改的位置
+|“| '{A-ZA-Z0-9 []'“<>} 与`相同，但在行中的第一个非空白处
+|:marks|:marks 打印活动标记
+| CTRL-O | N CTRL-O跳转到跳转列表中的第N个旧位置
+| CTRL-I | N CTRL-I跳转到第N个新的位置
+|：沮| ：ju [mps]打印跳转列表
+-------------------------------------------------- ----------------------------
+* Q_vm *各种动作
+
+|％| ％找到下一个大括号，括号，注释或“#if”/
+“#else”/“＃endif”并转到它的匹配
+| H | N H在窗口中的第N行前进
+非空白
+| M | M先到窗口中间的第一行
+非空白
+| L | N L从底部开始第N行
+非空白
+
+|去| N转到缓冲区中的第N个字节
+|：去| ：[range] go [to] [off]转到缓冲区中的[off]字节
+-------------------------------------------------- ----------------------------
+* Q_ta *使用标签
+
+|：TA | ：ta [g] [！] {tag}跳转到标签{tag}
+|：TA | ：[count] ta [g] [！]跳转到标签列表中的[count]'新标签
+| CTRL-] | CTRL-]跳转到光标下的标签，除非有更改 已经制成
+|：TS | ：ts [选择] [！] [标签]列出匹配的标签，然后选择要跳转到的标签
+|：tjump | ：tj [ump] [！] [标签]跳转到标签[标签]或从列表中选择
+有多个匹配
+|：LTAG | ：lt [ag] [！] [标签]跳转到标签[标签]并向其添加匹配标签
+位置列表
+
+|：标签| ：标签打印标签列表
+| CTRL-T | N CTRL-T从标签列表中的第N个旧标签跳回
+|：PO | ：[count] po [p] [！]从标签列表中的[count]'较早标签跳回
+|：T下页| ：[count] tn [ext] [！]跳转到[count]个下一个匹配标签
+|：TP | ：[count] tp [上一页] [！]跳转到[count]上一个匹配的标签
+|：TR | ：[count] tr [ewind] [！]跳转到[count]个匹配的标签
+|：TL | ：tl [ast] [！]跳转到最后一个匹配标签
+
+|：ptag |命令：pt [ag] {tag}打开预览窗口显示标签{tag}
+| CTRL-W_} | CTRL-W}像CTRL-]，但在预览窗口中显示标签
+|：PTS | ：pts [elect]像“：tselect”，但在预览窗口中显示标签
+|：ptjump | ：ptj [ump]像“：tjump”，但在预览窗口中显示标签
+|：pclose函数| ：电脑[失去]关闭标签预览窗口
+| CTRL-W_z | CTRL-W z关闭标签预览窗口
+-------------------------------------------------- ----------------------------
+* Q_sc *滚动
+
+| CTRL-E | N CTRL-E窗口N行向下（默认值：1）
+| CTRL-d | N CTRL-D窗口N行向下（默认：1/2窗口）
+| CTRL-F | N CTRL-F窗口N页向前（向下）
+| CTRL-Y | N CTRL-Y窗口向上N行（默认值：1）
+| CTRL-U | N CTRL-U窗口N行向上（默认：1/2窗口）
+| CTRL-B | N CTRL-B窗口N页向后（向上）
+| Z <CR> | z <CR>或zt重绘，窗口顶部的当前行
+| Z。| ž。或zz重绘，窗口中心的当前行
+| Z- | z-或zb重绘，窗口底部的当前行
+
+这些仅在'换行'关闭时才起作用：
+| ZH | N zh向右滚动N个字符
+| ZL | N zl滚动屏幕向左N个字符
+| ZH | N zH向右滚动一半屏幕宽度
+| ZL | N zL向左滚动屏幕宽度的一半
+-------------------------------------------------- ----------------------------
+* Q_in *插入文字
+
+| A | N光标后附加文字（N次）
+| A | N在行尾添加文本（N次）
+|我| N我在光标前插入文本（N次）（另外：<Insert>）
+| I | N在行中的第一个非空白之前插入文本（N次）
+| gi |命令N gI在第1列中插入文本（N次）
+| O | N o在当前行下方打开一个新行，追加文本（N次）
+| O | N O在当前行上方打开新行，附加文本（N次）
+|：startinsert | ：star [tinsert] [！]开始插入模式，当使用[！]时追加
+|：startreplace | ：startr [eplace] [！]开始替换模式，在使用[！]时出现在EOL
+
+在可视块模式下：
+| v_b_I |我在所有选定的行前插入相同的文本
+| v_b_A |在所有选定的行后附加相同的文本
+-------------------------------------------------- ----------------------------
+* Q_ai *插入模式键
+
+|插入指数|插入模式命令的字母索引
+
+离开插入模式：
+| I_ <Esc键> | <Esc>结束插入模式，回到普通模式
+了| i_CTRL-C | CTRL-C像<Esc>，但不要使用缩写
+了| i_CTRL-O | CTRL-O {command}执行{command}并返回到插入模式
+
+到处走：
+| I_ <向上> |光标键左右/上/下移动光标
+| I_ <S-左> |左移/右移一个单词左/右
+| I_ <S-向上> |向后/向前上移/下移一个屏幕
+| I_ <结束> |在行中的最后一个字符之后的<End>游标
+| I  -  <家> | <Home>光标到行中的第一个字符
+-------------------------------------------------- ----------------------------
+* Q_ss *插入模式下的特殊键
+
+了| i_CTRL-V | CTRL-V {char} ..直接插入字符，或输入十进制
+字节值
+| I_ <NL> | <NL>或<CR>或CTRL-M或CTRL-J
+开始新的行
+了| i_CTRL-E | CTRL-E从光标下方插入字符
+了| i_CTRL-Y | CTRL-Y从光标上方插入字符
+
+了| i_CTRL-A | CTRL-A插入先前插入的文本
+| i_CTRL- @ | CTRL- @插入先前插入的文本并停止
+插入模式
+了| i_CTRL-R | CTRL-R {0-9a-z％＃：.- =“}插入寄存器的内容
+
+了| i_CTRL-N | CTRL-N插入标识符之前的下一个匹配项
+光标
+了| i_CTRL-P | CTRL-P在之前插入标识符的前一个匹配
+光标
+了| i_CTRL-X | CTRL-X ...完成光标前的单词
+各种方式
+
+| I_ <BS> | <BS>或CTRL-H删除光标前的字符
+| I_ <德尔> | <Del>删除光标下的字符
+了| i_CTRL-W | CTRL-W删除光标前的单词
+了| i_CTRL-U | CTRL-U删除当前所有输入的字符
+线
+了| i_CTRL-T | CTRL-T在前面插入一个缩进的shiftwidth
+当前行
+了| i_CTRL-d | CTRL-D删除前面的一个缩进shiftwidth
+当前行
+| i_0_CTRL-d | 0 CTRL-D删除当前行中的所有缩进
+|我_ ^ _ CTRL-d | ^ CTRL-D删除当前行中的所有缩进，
+在下一行恢复缩进
+-------------------------------------------------- ----------------------------
+* Q_di *有向图
+
+|：挖| ：挖[raphs]显示当前的二合字母列表
+|：挖| ：dig [raphs] {char1} {char2} {number} ...
+添加图表到列表中
+
+在插入或命令行模式下：
+了| i_CTRL-K | CTRL-K {char1} {char2}
+输入有向图
+| i_digraph | {char1} <BS> {char2}
+如果设置了“digraph”选项，则输入二元图
+-------------------------------------------------- ----------------------------
+* Q_si *特殊插入
+
+|，R | ：r [file]在光标下插入[file]的内容
+|：！[R | ，R！ {command}将{command}的标准输出插入到下方
+光标
+-------------------------------------------------- ----------------------------
+* Q_de *删除文字
+
+| X | N x删除光标下方和后面的N个字符
+| <德尔> | N <Del>删除光标下方和后面的N个字符
+| X | N X删除光标前的N个字符
+| d | N d {motion}删除使用{motion}移动的文本
+| V_D | {可视化} d删除突出显示的文本
+| DD | N dd删除N行
+| d | N D删除到行的末尾（和N-1多行）
+|百灵| N J加入N-1行（删除<EOL> s）
+| v_J | {可视} J加入突出显示的行
+| GJ | N gJ像“J”，但不插入空格
+| v_gJ | {visual} gJ像“{visual} J”，但不插入空格
+|：d | ：[范围] d [x]删除[范围]行[到寄存器x]
+-------------------------------------------------- ----------------------------
+* Q_cm *复制和移动文本
+
+|报价| “{char}使用寄存器{char}进行下一次删除，抽出或放入
+|：注册| ：reg显示所有寄存器的内容
+|：注册| ：reg {arg}显示{arg}中提到的寄存器的内容
+| Y | N y {motion}将{motion}移动过来的文本放入一个寄存器中
+| v_y | {可视化}将突出显示的文本拖放到一个寄存器中
+| YY | N yy将N行放入一个寄存器
+| Y | N Y将N行放入寄存器
+| P | N p在光标位置后放置一个寄存器（N次）
+| P | N P在光标位置之前放置一个寄存器（N次）
+|] P | N] p像p一样，但将缩进调整为当前行
+| [P | N [p像P一样，但是将缩进调整为当前行
+| GP | N gp like p，但在新文本之后留下光标
+| GP | N P如P，但在新文本之后留下光标
+-------------------------------------------------- ----------------------------
+* Q_ch *更改文字
+
+| R | N r {char}用{char}替换N个字符
+| GR | N gr {char}替换N个字符而不影响布局
+| R | N R进入替换模式（重复输入的文本N次）
+| GR | N gR进入虚拟替换模式：像替换模式一样
+而不会影响布局
+| v_b_r | {视觉}环R {}炭
+在可视块模式下：替换。的每个字符
+使用{char}选定的文本
+
+（更改=删除文本并进入插入模式）
+| C | N c {motion}使用{motion}更改移动的文本
+| V_C | {可视化} c更改突出显示的文本
+| CC | N cc改变N行
+| S | N S改变N行
+| C | N C改变到行的末尾（并且N-1行更多）
+| S | N将更改N个字符
+| v_b_c |可视块模式下的{visual} c：更改每个选中的项
+输入文字的行
+| v_b_C | {Visual} C在可视块模式下：更改每个选中的项目
+直到输入文本结束为止
+
+|〜| N个字符和前进光标的切换大小写
+| V_〜| {visual}〜切换大写文本的大小写
+| v_u | {visual} u使突出显示的文本小写
+| v_U | {可视化} U使突出显示的文本大写
+| G〜|用于移动文本的g〜{motion}切换案例
+{运动}
+|谷| gu {motion}使用{motion}移动的文本
+小写
+|谷| gU {motion}使用{motion}移动的文本
+大写
+| v_g？| {视觉}克？在突出显示的文本上执行rot13编码
+| G？| g？{motion}对移动过的文本执行rot13编码
+与{动作}
+
+| CTRL-A | N CTRL-A在光标处或光标后面添加N
+| CTRL-X | N CTRL-X从光标处或光标后面的数字中减去N.
+
+| <| N <{motion}移动用{motion}移动的线条
+左移左移
+| << | N <<向左移动一个shiftwidth的N行
+|> | N> {motion}移动用{motion}之一移动的线条
+右移shiftwidth
+| >> | N >>将N行向右移动一个shiftwidth
+| GQ | N gq {motion}格式化用{motion}移到的行
+'textwidth'长度
+|：CE | ：[range] ce [nter] [width]
+居中[范围]中的行
+|：乐| ：[范围] le [ft] [indent]
+左对齐[range]中的行（[indent]）
+|：RI | ：[范围] ri [ght] [宽度]
+将[范围]中的行右对齐
+-------------------------------------------------- ----------------------------
+* Q_co *复杂的变化
+
+|！| N！{motion} {command} <CR>
+过滤通过{command}移动过来的行
+|！| N !! {command} <CR>
+通过{command}过滤N行
+| V_！| {视觉}！{命令} <CR>
+通过{command}过滤突出显示的行
+|：范围| ：[范围]！ {命令} <CR>
+通过{command}过滤[range]行
+| = | N = {动作}
+过滤通过'equalprg'移动过来的行
+| == | N ==通过'equalprg'过滤N行
+| V_ = | {视觉} =
+通过'equalprg'过滤突出显示的行
+|：S | ：[范围] S [ubstitute] / {图案} / {串} / [G] [C]
+在[range]行中用{string}替换{pattern};
+用[g]替换所有出现的{pattern};
+与[c]一起确认每个替换
+|：S | ：[范围] s [ubstitute] [g] [c]
+用新的范围和选项重复先前的“：s”
+|＆| ＆在没有选项的当前行上重复前面的“：s”
+|：滞留| ：[范围] ret [ab] [！] [tabstop]
+将“tabstop”设置为新值并调整空白
+于是
+-------------------------------------------------- ----------------------------
+* Q_vi *可视模式
+
+|视觉指数|可视模式命令列表。
+
+| V | v开始突出显示字符}移动光标并使用
+| V | V开始突出显示linewise}操作符来影响
+| CTRL-V | CTRL-V开始突出显示块状}突出显示的文本
+| V_O | o用高亮开始交换光标位置
+| GV | gv在之前的视觉区域开始突出显示
+| v_v | v突出显示字符或停止突出显示
+| v_V | V突出显示线条或停止突出显示
+| V_CTRL-V | CTRL-V以块形式突出显示或停止突出显示
+-------------------------------------------------- ----------------------------
+* Q_to *文本对象（仅在可视模式或操作员之后）
+
+| v_aw | N aw选择“一个字”
+| v_iw | N iw选择“内部词”
+| v_aW | N aW选择“a | WORD |”
+| v_iW | N iW选择“inner | WORD |”
+| v_as | N选择“一句话”
+| v_is | N是选择“内部句子”
+| v_ap | N ap选择“一个段落”
+| v_ip | N ip选择“内部段落”
+| v_ab | N ab选择“一个块”（从“[（”到“]）”）
+| v_ib | N ib选择“内部程序段”（从“[（”到“]）”）
+| v_aB | N aB选择“a Block”（从“[{”到“]}”）
+| v_iB | N iB选择“内部块”（从“[{”到“]}”）
+| V_A> | N a>选择“a <> block”
+| V-I> | N i>选择“内部<>块”
+| v_at | N选择“标签块”（从<aaa>到</ aaa>）
+| v_it | N it选择“内部标签块”（从<aaa>到</ aaa>）
+| V_A“| N a'选择“一个单引号的字符串”
+| V-I'| N我选择“内部单引号字符串”
+| v_aquote | N a“选择”双引号字符串“
+| v_iquote | N i“选择”内部双引号字符串“
+| v_a` | N a`选择“反向引用的字符串”
+| v_i` | N i`选择“内部反向引用字符串”
+
+-------------------------------------------------- ----------------------------
+* Q_re *重复命令
+
+|。| N。重复上次更改（将计数替换为N）
+| Q | q {a-z}将输入的字符记录到寄存器{a-z}中
+| Q | q {A-Z}记录键入的字符，附加到寄存器{a-z}
+| Q |停止录制
+| @ | N @ {a-z}执行寄存器{a-z}的内容（N次）
+| @@ | N @@重复上一个@ {a-z}（N次）
+|：@ | ：@ {a-z}执行寄存器{a-z}的内容作为Ex
+命令
+|：@@ | ：@@重复前一个：@ {a-z}
+|：G | ：[范围] G [叶形] / {图案} / [CMD]
+在行上执行Ex命令[cmd]（默认：“：p”）
+在{pattern}匹配的[范围]内
+|：G | ：[范围] G [叶形] / {图案} / [CMD]
+在行上执行Ex命令[cmd]（默认：“：p”）
+在{pattern}不匹配的[范围]内
+|：所以| ：源文件}
+从{file}读取Ex命令
+|：所以| ：资源]！ {文件}
+从{file}读取Vim命令
+|：SL | ：sl [eep] [秒]
+[秒]不做任何事情
+| GS | N gs睡了N秒
+-------------------------------------------------- ----------------------------
+* Q_km *键映射
+
+|：地图| ：在正常和可视模式下，ma [p] {lhs} {rhs}地图{lhs}到{rhs}
+|：地图| ：地图]！插入和命令行中的{lhs} {rhs}映射{lhs}到{rhs}
+模式
+|：noremap | ：无[remap] [！] {lhs} {rhs}
+与“：map”相同，不会为此{rhs}重映射
+|：取消映射| ：unm [ap] {lhs}移除{lhs}为Normal和的映射
+可视模式
+|：取消映射| ：UNM [美联社]！ {lhs}删除Insert和的{lhs}的映射
+命令行模式
+|：map_l | ：ma [p] [lhs]列表映射（以[lhs]开始）
+正常和可视模式
+|！map_l | ：地图]！ [lhs]列表映射（以[lhs]开头）
+插入和命令行模式
+|：CMAP | ：CMAP /：cunmap /：cnoremap
+像“：map！”/“：unmap！”/“：noremap！”但对于
+仅限命令行模式
+|：IMAP | ：IMAP /：iunmap /下：inoremap
+像“：map！”/“：unmap！”/“：noremap！”但对于
+仅插入模式
+|：NMAP | ：NMAP /：nunmap /模式：nnoremap
+像“：map”/“：unmap”/“：noremap”，但是
+仅限正常模式
+|：VMAP | ：VMAP /：vunmap /：vnoremap
+像“：map”/“：unmap”/“：noremap”，但是
+仅可视模式
+|：OMAP | ：OMAP /：ounmap /：onoremap
+像“：map”/“：unmap”/“：noremap”，但仅限于
+当运营商正在等待时
+|：MAPC | ：mapc [lear]删除Normal和Visual模式的映射
+|：MAPC | ：MAPC [李尔]！删除插入和Cmdline模式的映射
+|：imapc | ：imapc [lear]删除插入模式的映射
+|：vmapc | ：vmapc [lear]删除可视模式的映射
+|：omapc | ：omapc [lear]删除操作员等待模式的映射
+|：nmapc | ：nmapc [lear]删除Normal模式的映射
+|：cmapc | ：cmapc [lear]删除Cmdline模式的映射
+|：mkexrc | ：mk [exrc] [！] [file]写入当前映射，缩写和
+设置为[文件]（默认：“.exrc”;
+使用 ！覆盖）
+|：mkvimrc | ：mkv [imrc] [！] [文件]
+与mkexrc相同，但使用默认的“.nvimrc”
+了|：mksession | ：mks [ession] [！] [文件]
+像“：mkvimrc”，但存储当前文件，
+窗户等，以便能够继续
+此会话稍后
+-------------------------------------------------- ----------------------------
+* Q_ab *缩写
+
+|：缩写| ：ab [breviate] {lhs} {rhs}为{rhs}添加{lhs}的缩写
+|：缩写| ：ab [breviate] {lhs}显示以{lhs}开头的abbr，
+|：缩写| ：ab [breviate]显示所有缩写
+|：unabbreviate | ：una [bbreviate] {lhs}删除{lhs}的缩写
+|：noreabbrev | ：norea [bbrev] [lhs] [rhs] like“：ab”，但不要重新映射[rhs]
+|：iabbrev | ：iab /：iunab /：inoreab like“：ab”，但仅适用于插入模式
+|：cabbrev | ：cab /：cunab /：cnoreab像“：ab”，但仅限于
+命令行模式
+|：abclear | ：abc [lear]删除所有缩写
+|：cabclear | ：cabc [lear]删除Cmdline模式的所有缩写
+|：iabclear | ：iabc [lear]删除插入模式的所有缩略词
+-------------------------------------------------- ----------------------------
+* Q_op *选项
+
+|：集| ：se [t]显示所有修改的选项
+|：集| ：se [t]全部显示所有选项
+|：集| ：se [t] {option}设置布尔选项（将其打开），
+显示字符串或数字选项
+|：集| ：se [t]否{option}重置布尔选项（将其关闭）
+|：集| ：se [t] inv {option}反转布尔选项
+|：集| ：se [t] {option} = {value}将字符串/数字选项设置为{value}
+|：集| ：se [t] {option} + = {value}将{value}追加到字符串选项add中
+{数值}到数字选项
+|：集| ：se [t] {option}  -  = {value}将{value}移除到string选项，
+从数字选项中减去{value}
+|：集| ：se [t] {option}？显示{option}的值
+|：集| ：se [t] {option}＆reset {option}为默认值
+
+|：setlocal |被：setl [ocal]像“：set”但设置本地值
+对于有一个选项
+和|：setglocal | ：setg [lobal] like“：set”，但设置全局值
+的本地选项
+
+|：选项| ：opt [离子]打开一个新窗口查看和设置
+选项，按功能分组，
+一行解释和链接
+帮助
+
+每个选项的简短说明：*选项列表*
+'aleph''al'字母Aleph（希伯来语）的ASCII码
+'allowrevins''ari'允许在插入和命令行模式下使用CTRL-_
+'altkeymap''akm'默认第二语言（波斯语/希伯来语）
+'ambiwidth''ambw'如何处理含糊不清宽度的Unicode字符
+'autochdir''acd'将目录更改为当前窗口中的文件
+阿拉伯语“阿拉伯语”作为默认的第二语言
+'arabicshape''arshape'确实塑造了阿拉伯字符
+'autoindent''ai'从上一行开始缩进新行
+'autoread''ar'autom。在Vim之外更改时读取文件
+'autowrite''aw'会自动写入文件，如果更改
+'autowriteall''awa'为'autowrite'，但可以使用更多的命令
+'background''bg''dark'或者'light'，用于突出显示的颜色
+'backspace''bs'退格如何在行首工作
+'备份''bk'在覆盖文件后保留备份文件
+'backupcopy''bkc'将备份作为副本，不要重命名文件
+'backupdir''bdir'备份文件的目录列表
+用于备份文件的'backupext''bex'扩展名
+'backupskip''bsk'不支持匹配这些模式的文件
+'balloondelay''bdlay'延迟mS，然后气球可能弹出
+'ballooneval''beval'切换气球评估
+'balloonexpr''bexpr'表达在气球中显示
+由于这些原因，'belloff''bo'不会响铃
+'binary''bin'以二进制模式读/写/编辑文件
+'炸弹'在文件中加上一个字节顺序标记
+'breakat''brk'字符可能会导致换行符
+'breakindent''bri'包装线重复缩进
+'breakindentopt''briopt'设置'breakindent'
+'browsedir''bsdir'开始浏览的目录
+'bufhidden''bh'当缓冲区不在窗口中时该怎么办
+'buflisted''bl'缓冲区是否出现在缓冲区列表中
+'buftype''bt'特殊类型的缓冲区
+'casemap''cmp'指定如何更改字母大小写
+'cdpath''cd'用“：cd”搜索的目录列表
+'cedit'键用于打开命令行窗口
+用于字符编码转换的'charconvert''ccv'表达式
+'cindent''cin'做C程序缩进
+'cinkeys''cink'键，当'cindent'被设置时触发缩进
+'cinoptions''cino'如何设置'cindent'时的缩进
+'cinwords''cinw'单词'si'和'cin'添加缩进
+'剪贴板''cb'使用剪贴板作为未命名的注册表
+'cmdheight''ch'用于命令行的行数
+'cmdwinheight''cwh'命令行窗口的高度
+'colourcolumn''cc'列突出显示
+'列''co'列数在显示中
+'评论''com'模式，可以开始评论线
+'commentstring''cms'模板用于评论;用于折叠标记
+'complete''cpt'指定插入模式完成的工作方式
+'completefunc''cfu'函数用于插入模式完成
+为完成插入模式完成'全面选择''cot'选项
+'concealcursor''cocu'隐藏文本是否隐藏在光标行中
+'conceallevel''cole'是隐藏文字是显示还是隐藏
+'确认''cf'询问如何处理未保存/只读文件
+'copyindent''ci'使'autoindent'使用现有的缩进结构
+用于Vi兼容行为的'cpoptions''cpo'标志
+'cscopepathcomp''cspc'要显示多少路组件
+'cscopeprg''csprg'命令执行cscope
+'cscopequickfix''csqf'为cscope结果使用quickfix窗口
+'cscoperelative''csre'使用cscope.out路径基名作为前缀
+'cscopetag''cst'使用cscope作为标记命令
+'cscopetagorder''csto'确定“cstag”搜索顺序
+'cscopeverbose''csverb'在添加cscope数据库时给出消息
+'cursorbind''crb'在窗口中移动光标，因为它在其他窗口中移动
+'cursorcolumn''cuc'突出显示光标的屏幕列
+'cursorline''cul'突出显示光标的屏幕线
+'debug'设置为“msg”以查看所有错误消息
+'define''def'pattern用于查找宏定义
+'delcombine''deco'删除组合字符
+'dictionary''dict'用于关键字完成的文件名列表
+'diff'为当前窗口使用diff模式
+'diffexpr''dex'表达式用于获取diff文件
+'diffopt''dip'选项用于使用差异模式
+'digraph''dg'在插入模式下启用插图
+'目录''dir'交换文件的目录名称列表
+'display''dy'列表标记用于显示文本
+'eadirection''ead'，指向'equalalways'的方向
+'encoding''enc'编码在内部使用
+'endofline''eol'为文件中的最后一行写入<EOL>
+'equalalways''ea'窗口会自动制作相同的尺寸
+'equalprg''ep'外部程序用于“=”命令
+'错误信号''eb'响起了错误消息的响铃
+QuickFix模式的错误文件的'errorfile''ef'名称
+'errorformat''efm'描述错误文件中的行
+'eventignore''ei'自动命令被忽略的事件
+'expandtab''et'插入<Tab>时使用空格
+'exrc''ex'读取当前目录中的.nvimrc和.exrc
+'fileencoding''fenc'文件编码为多字节文本
+'fileencodings''fencs'自动检测字符编码
+用于文件I / O的'fileformat''ff'文件格式
+'fileformats''ffs'自动检测'fileformat'的值
+'fileignorecase''fic'在使用文件名时忽略大小写
+'filetype''ft'文件类型，用于自动命令
+'fillchars''fcs'字符用于显示特殊项目
+'fixendofline''fixeol'确保文件中的最后一行具有<EOL>
+'fkmap''fk'波斯语键盘映射
+'foldclose''fcl'在光标离开时关闭折叠
+'foldcolumn''fdc'用于指示折叠的列的宽度
+'foldenable''fen'设置为显示打开的所有折叠
+'foldmethod'为“expr”时使用的'foldexpr''fde'表达式
+'foldmeore''fdi'忽略行'foldmethod'是“缩进”
+'foldlevel''fdl'关闭的折叠比这个更高
+当开始编辑文件时，'foldlevelstart''fdls''foldlevel'
+'foldmethod'为“marker”时使用的'foldmarker''fmr'标记
+'foldmethod''fdm'折叠类型
+'foldminlines''fml'要折叠的最小行数
+'foldnestmax''fdn'最大折叠深度
+'foldopen''fdo'将为其打开折叠命令
+'foldtext''fdt'表达式用于显示关闭的折叠
+'formatexpr''fex'表达与“gq”命令一起使用
+'formatlistpat''flp'模式用于识别列表标题
+'formatoptions''fo'如何自动完成格式化
+'formatprg''fp'与“gq”命令一起使用的外部程序的名称
+'fsync''fs'是否在文件写入后调用fsync（）
+'gdefault''gd'：'substitute'标志'g'是默认的
+'grepformat''gfm'格式的'grepprg'输出
+'grepprg''gp'程序用于“：grep”
+'guicursor''gcr'GUI：光标形状和闪烁的设置
+'guifont''gfn'GUI：要使用的字体的名称
+'guifontset''gfs'GUI：要使用的多字节字体的名称
+'guifontwide''gfw'双宽字符的字体名称列表
+'guioptions''go'GUI：使用哪些组件和选项
+'guitablabel''gtl'GUI：标签页的自定义标签
+'guitabtooltip''gtt'GUI：自定义标签页的工具提示
+'helpfile''hf'主帮助文件的完整路径名
+'helpheight'''是一个新的帮助窗口的最小高度
+'helplang''hlg'首选的帮助语言
+'hidden''hid'不会在缓冲区被放弃时卸载缓冲区
+'hlsearch''hls'突出显示与上一次搜索模式匹配
+'历史''嗨'多个命令行被记住
+'hkmap''hk'希伯来语键盘映射
+'hkmapp''hkp'拼音希伯来语键盘映射
+'icon'让Vim设置窗口图标的文本
+'iconstring'字符串用于Vim图标文本
+'ignorecase''ic'忽略搜索模式中的情况
+'imcmdline''imc'在开始编辑命令行时使用IM
+'imdisable''imd'不在任何模式下使用IM
+'iminsert''imi'在插入模式下使用：lmap或IM
+'imsearch''ims'在输入搜索模式时使用：lmap或IM
+'include''inc'模式用于查找包含文件
+用于处理包含行的'includeexpr''inex'表达式
+'incsearch''是在输入搜索模式时突出显示匹配
+'indentexpr''inde'表达式用于获取行的缩进
+'indentkeys''indk'键，用'indentexpr'触发缩进
+'infercase''inf'调整匹配关键字完成情况
+'insertmode''im'在插入模式下开始编辑文件
+包含在文件名和路径名中的'isfname''isf'字符
+包含在标识符中的'isident''isi'字符
+包含在关键字中的'iskeyword''isk'字符
+'isprint''isp'可打印的字符
+'加入空间''js'在加入命令后的两个空格之后
+'keymap''kmp'键盘映射的名称
+'keymodel''km'使用键启动/停止选择
+'keywordprg''kp'程序用于“K”命令
+'langmap''lmap'为其他语言模式的字母字符
+用于菜单的'langmenu''lm'语言
+'langremap''lrm'将'langmap'应用于映射的字符
+'laststatus''ls'告诉最后一个窗口何时有状态行
+'lazyredraw''lz'在执行宏时不会重绘
+'linebreak''lbr'在空白处排成一行
+显示屏中的“行数”行数
+'linespace''lsp'要在字符之间使用的像素行数
+'Lisp'自动缩进Lisp
+'lispwords''lw'字改变了lisp缩进的作用
+'list'显示<Tab>和<EOL>
+'listchars''lcs'字符以列表模式显示
+'loadplugins''lpl'启动时加载插件脚本
+'魔术'改变搜索模式中的特殊字符
+'makeef''mef'错误文件的名称为：“make”
+'makeprg''mp'程序用于“：make”命令
+'匹配''mps'字符对，“％”可匹配
+'比赛时间''垫'十分之一秒显示匹配paren
+'maxcombine''mco'显示的最大组合字符数
+'maxfuncdepth''mfd'用户功能的最大递归深度
+'maxmapdepth''mmd'映射的最大递归深度
+'maxmem''mm'用于一个缓冲区的最大内存（以千字节为单位）
+'maxmempattern''mmp'用于模式搜索的最大内存（以千字节为单位）
+'maxmemtot''mmt'用于所有缓冲区的最大内存（以千字节为单位）
+'menuitems''错误'菜单中的最大项目数
+'mkspellmem''msm'内存使用|：mkspell |压缩树
+'modeline''ml'在文件开始或结束时识别模式行
+'modelines''mls'检查行模式的行数
+'可修改''ma'对文本的更改是不可能的
+'修改''mod'缓冲区已被修改 整个屏幕填满后
+'更多'暂停列表
+'鼠标'可以使用鼠标点击
+'mousefocus''mousef'键盘焦点跟随鼠标
+'mousehide''mh'在输入时隐藏鼠标指针
+'mousemodel''mousem'改变鼠标按钮的含义
+'mouseshape'鼠标形状的鼠标指针在不同的模式下
+'mousetime''mouset'鼠标双击之间的最大时间
+'CTRL-A'命令识别'nf'数字格式
+'number''nu'打印每行前面的行号
+用于行号的'numberwidth''nuw'列数
+'omnifunc''ofu'函数用于文件类型特定的完成
+'opendevice''odev'允许在MS-Windows上读取/写入设备
+'operatorfunc''opfunc'函数被调用| g @ |操作者
+'packpath''pp'用于包的目录列表
+'段''段'nroff宏分开段落
+'粘贴'允许粘贴文本
+'pastetoggle''pt'键代码导致'粘贴'切换
+'patchexpr''pex'表达式用于修补文件
+'patchmode''pm'保留文件的最旧版本
+用'gf'et.al.搜索的'path''pa'目录列表。
+Perl动态库的'perldll'名称
+'preserveindent''pi'在重新加载时保留缩进结构
+'previewheight''pvh'预览窗口的高度
+'previewwindow''pvw'标识预览窗口
+'printdevice''pdev'用于打印机的打印机名称：硬拷贝
+'printencoding''penc'编码用于打印
+'printexpr''pexpr'表达式用于打印PostScript：hardcopy
+'printfont''pfn'用于硬拷贝的字体名称
+用于：hardcopy的标题的'printheader''pheader'格式
+'printmbcharset''pmbcs'CJK字符集用于：硬拷贝
+'printmbfont''pmbfn'字体名称用于硬拷贝的CJK输出
+'printoptions''popt'控制硬拷贝输出的格式
+在Ex模式下'提示''提示'启用提示
+'pumheight''ph'弹出菜单的最大高度
+Python 2动态库的'pythondll'名称
+Python 3动态库的'pythonthreedll'名称
+'quoteescape''qe'转义字符串中使用的字符
+'readonly''ro'不允许写缓冲区
+'hlsearch'和|：match |的'redrawtime''rdt'超时突出
+'regexpengine''re'使用默认的正则表达式引擎
+'relativenumber''rnu'显示每行前面的相对行号
+'重映射'允许映射递归地工作
+'报告'报告门槛。线改变了
+'revins''ri'插入字符会倒退
+'rightleft''rl'窗口是从右到左的
+'rightleftcmd''rlc'命令的编辑从右到左
+Ruby动态库的'rubydll'名称
+'ruler''ru'显示状态行中的光标行和列
+'rulerformat''ruf'为统治者定制格式
+'runtimepath''rtp'用于运行时文件的目录列表
+'滚动''scr'行用CTRL-U和CTRL-D滚动
+'scrollbind''scb'在其他窗口滚动时在窗口中滚动
+'scrolljump''sj'滚动的最少行数
+'scrolloff''so'minimum nr。'光标上方和下方的行
+'scrollopt''sbo''scrollbind'应该如何表现
+'部分''部门'nroff宏分开的部分
+'secure'安全模式用于读取当前目录中的.vimrc
+'选择''选择'使用什么类型的选择
+'selectmode''slm'何时使用选择模式而不是可视模式
+'sessionoptions'| ssop'选项|：mksession |
+'shada''sd'在启动和退出时使用.shada文件
+'shell''sh'shell用于外部命令
+'shellcmdflag''shcf'标志到shell来执行一个命令
+'shellpipe''sp'字符串将“：make”的输出置于错误文件中
+'shellquote''shq'引用字符（s）for shell命令
+'shellredir''srr'字符串将过滤器的输出置于临时文件中
+'shellslash''ssl'使用正斜杠作为shell文件名
+'shelltemp''stmp'是否为shell命令使用临时文件
+'shellxquote'是'shellxescape''sxe'字符时
+'shellxquote''sxq'像'shellquote'，但包括重定向
+'shiftround''sr'将缩进到多个shiftwidth
+'shiftwidth''sw'用于（自动）缩进步骤的空格数
+'shortmess''shm'标志列表，减少消息的长度
+'showbreak''sbr'字符串用于包装行的开头
+'showcmd''sc'在状态行显示（部分）命令
+'showfulltag''sft'在完成标记时显示完整标记模式
+'showmatch''sm'短暂地跳转到匹配支架，如果插入一个
+在状态行上显示'showmode''smd'消息以显示当前模式
+'showtabline''stal'告诉标签页行何时显示
+'sidescroll''ss'的最小列数滚动水平
+'sidescrolloff''siso'分钟。 NR。光标左侧和右侧的列
+'signcolumn''scl'何时显示符号列
+当模式有大写时，'smartcase''scs'不忽略大小写
+'smartindent''s'智能自动缩进C程序
+'插入<Tab>时，'smarttab''sta'使用'shiftwidth'
+'softtabstop''sts'<Tab>在编辑时使用的空格数
+'拼写'启用拼写检查
+'spellcapcheck''spc'模式来定位句子的结尾
+'spellfile''spf'files where | zg |和| zw |存储单词
+'spelllang''spl'语言进行拼写检查
+'spellsuggest''sps'方法（s）用于建议拼写更正
+'splitbelow''sb'分割的新窗口低于当前窗口
+'splitright''spr'新窗口放在当前窗口的右侧
+'startofline''sol'命令将光标移动到第一个非空白行
+'statusline''stl'状态行的自定义格式
+'suffixes''su'后缀在多次比赛中被忽略
+搜索文件时添加'suffixesadd''sua'后缀
+'swapfile''swf'是否使用交换文件作为缓冲区
+'switchbuf''swb'在切换到另一个缓冲区时设置行为
+'synmaxcol''smc'最大列来查找语法项
+为当前缓冲区加载'语法''syn'语法
+控制台标签页行的'tabline''tal'自定义格式
+'tabpagemax''tpm'| p |的最大标签页数和“全部选项卡”
+'tabstop''ts'文件中<Tab>使用的空格数
+'tagbsearch''tbs'在标签文件中使用二进制搜索
+'tagcase''tc'如何在标签文件中搜索时处理大小写
+'taglength''tl'标签重要字符的数量
+标记文件中的'tagrelative''tr'文件名是相对的
+标签命令使用的文件名的'标签''标签'列表
+'tagstack''tgst'将标签推送到标签堆栈上
+'term'名称的终端
+'termbidi''tbidi'码头照顾双向性
+'简洁'缩短了一些信息
+'textwidth''tw'正在插入的文本的最大宽度
+用于关键字完成的同义词库文件的'叙词表''tsr'列表
+'tildeop''top'tilde命令“〜”的行为就像操作员一样
+'超时'到'超时映射和关键代码
+'timeoutlen''tm'以毫秒为单位的超时时间
+'标题'让Vim设置窗口的标题
+'titlelen'用于窗口标题的'列'百分比
+'titleold'旧标题，退出时恢复
+'titlestring'字符串用于Vim窗口标题
+'ttimeout'超时映射
+'ttimeoutlen''ttm'以毫秒为单位的关键代码超时
+'ttytype''tty'别名为'term'
+'undodir''udir'在哪里存储撤消文件
+'undofile''udf'保存文件中的撤消信息
+'undolevels''ul'可以撤消的最大数量的更改
+为了在缓冲区重新加载时保存以撤消，'取消重载''ur'最多行数
+'updatecount''uc'之后，这个很多字符刷新交换文件
+这个毫秒刷新交换文件后的'updatetime''ut'
+'verbose''vbs'给出信息性消息
+'verbosefile''vfile'文件来写入消息
+'viewdir''vdir'目录在哪里存储文件：mkview
+'viewoptions''vop'指定为mkview保存的内容
+'virtualedit''ve'何时使用虚拟编辑
+'visualbell''vb'使用视觉响铃而不是哔哔声
+'warn'在缓冲区被改变时警告shell命令
+'whichwrap''ww'允许指定的键跨越界限
+'wildchar''wc'通配符扩展的命令行字符
+'wildcharm''wcm'like'wildchar'，但是也可以在映射时使用
+'wildignore''假发'文件匹配这些模式没有完成
+'wildignorecase''wic'在完成文件名时忽略大小写
+'wildmenu''wmnu'使用菜单来完成命令行
+wildchar'命令行扩展的'wildmode''wim'模式
+'wildoptions''wop'指定命令行完成的方式
+当Windows系统处理ALT键时'winaltkeys''wak'
+'window''wi'nr line to scroll for CTRL-F and CTRL-B
+'winheight''wh'当前窗口的最少行数
+'winfixheight''wfh'在打开/关闭窗口时保持窗口高度
+'winfixwidth''wfw'在打开/关闭窗口时保持窗口宽度
+'winminheight''wmh'为任何窗口的最少行数
+'winminwidth''wmw'任意窗口的最少列数
+'winwidth''wiw'当前窗口的最少列数
+'换行'换行并在下一行继续
+'wrapmargin''wm'字符从包装开始的右侧
+'wrapscan''ws'搜索包裹在文件的末尾
+写入文件是允许的
+'writeany''wa'写入文件，不需要“！”覆盖
+'writebackup''wb'在覆盖文件之前进行备份
+'writedelay''wd'为每个char延迟这么多毫秒（用于调试）
+-------------------------------------------------- ----------------------------
+* Q_ur *撤销/重做命令
+
+| U | N u取消最后N次更改
+| CTRL-R | N CTRL-R重做最后N次撤消更改
+| U | U恢复上次更改的行
+-------------------------------------------------- ----------------------------
+* Q_et *外部命令
+
+|：| ：！{command}用shell执行{command}
+| K | K在光标下查找关键字
+'keywordprg'程序（默认：“man”）
+-------------------------------------------------- ----------------------------
+* Q_qf * Quickfix命令
+
+|：CC | ：cc [nr]显示错误[nr]（默认值再次相同）
+|：CNEXT | ：cn显示下一个错误
+|：cprevious | ：cp显示以前的错误
+|：CLIST | ：cl列出所有错误
+|：CFile的| ：cf从文件'errorfile'中读取错误
+|：cgetbuffer | ：cgetb像：cbuffer但不跳到第一个错误
+|：cgetfile | ：cg像：cfile但不要跳到第一个错误
+|：cgetexpr | ：cgete就像：cexpr，但不要跳到第一个错误
+|：caddfile | ：caddf将错误文件中的错误添加到当前
+quickfix列表
+|：caddexpr | ：cad将表达式中的错误添加到当前
+quickfix列表
+|：cbuffer | ：cb从缓冲区中的文本读取错误
+|：cexpr | ：cex从表达式读取错误
+|：cquit | ：cq退出而不写入并返回错误代码（至
+编译器）
+|：化妆| ：使[参数]开始制作，读取错误，并跳到第一个
+错误
+|：grep的| ：gr [ep] [args]执行'grepprg'来查找匹配并跳转到
+第一个
+-------------------------------------------------- ----------------------------
+* Q_vc *各种命令
+
+| CTRL-L | CTRL-L清除并重画屏幕
+| CTRL-G | CTRL-G显示当前文件名（带路径）和光标
+位置
+| GA | ga显示光标所在字符的ascii值
+十进制，十六进制和八进制
+| G8 | g8用于utf-8编码：显示字节序列
+字符在十六进制光标下
+| g_CTRL-G | g CTRL-G显示光标栏，行和字符
+位置
+| CTRL-C |搜索过程中的CTRL-C：中断搜索
+| <德尔> |输入计数时<Del>：删除最后一个字符
+|：版本| ：ve [rsion]显示版本信息
+|：正常| ：norm [al] [！] {commands}
+执行普通模式命令
+| Q | Q切换到“Ex”模式
+
+|：REDIR | ：redir> {file}将消息重定向至{file}
+|：无声| ：静默[！] {命令}静默地执行{命令}
+|：确认| ：确认{command}退出，写入等等，询问一下
+未保存的更改或只读文件
+|：浏览| ：使用a浏览{command}打开/读取/写入文件
+文件选择对话框
+-------------------------------------------------- ----------------------------
+* Q_ce *命令行编辑
+
+| C_ <Esc键> | <Esc>放弃命令行（如果'wildchar'是
+<Esc>键入两次）
+
+在| c_CTRL-V | CTRL-V {char}从字面上插入{char}
+在| c_CTRL-V | CTRL-V {数字}输入字符的十进制值（最多为
+三位数字）
+在| c_CTRL-K | CTRL-K {char1} {char2}
+输入有向图（参见| Q_di |）
+在| c_CTRL-R | CTRL-R {0-9a-z“％＃： -  =}
+插入注册表的内容
+
+| C_ <左> |向左/向右移动<左> / <右>光标
+| C_ <S-左> | <S-Left> / <S-右>向左/右移动一个单词
+在| c_CTRL-B | CTRL-B / CTRL-E光标到命令行的开头/结尾
+
+| C_ <BS> | <BS>删除光标前面的字符
+| C_ <德尔> | <Del>删除光标下的字符
+在| c_CTRL-W | CTRL-W删除光标前面的单词
+在| c_CTRL-U | CTRL-U删除所有字符
+
+| C_ <向上> | <Up> / <Down>调用启动的较旧/较新的命令行
+与当前的命令
+| C_ <S-向上> | <S-Up> / <S-Down>从历史记录中调出较旧/较新的命令行
+在| c_CTRL-G |当'incsearch'处于活动状态时，CTRL-G下一次匹配
+在| c_CTRL-T |当'incsearch'处于活动状态时，CTRL-T先前的匹配
+|：历史| ：他的[tory]显示较老的命令行
+
+命令行上的上下文敏感完成：
+
+| c_wildchar | 'wildchar'（默认：<Tab>）
+在前面的模式上完成
+光标;如果有多个匹配，
+嘟嘟声并显示第一个;进一步
+'wildchar'会显示下一个
+在| c_CTRL-d | CTRL-D列出与其中的模式匹配的所有名称
+游标前面
+在| c_CTRL-A | CTRL-A插入与前面的模式匹配的所有名称
+游标
+在| c_CTRL-L | CTRL-L插入名称的最长公共部分
+匹配模式
+在| c_CTRL-N |具有多个匹配的'wildchar'之后的CTRL-N：去
+到下一场比赛
+在| c_CTRL-P |具有多个匹配的'wildchar'之后的CTRL-P：去
+到之前的比赛
+-------------------------------------------------- ----------------------------
+* Q_ra * Ex范围
+
+|：范围| ，分隔两行号码
+|：范围| ;同样，将光标设置为第一个行号
+在解释第二个之前
+
+|：范围| {number}绝对行号
+|：范围| 。当前行
+|：范围| $文件中的最后一行
+|：范围| ％等于1，$（整个文件）
+|：范围| *等于'<，'>（可视区域）
+|：范围|标记t的位置
+|：范围| / {pattern} [/] {pattern}匹配的下一行
+|：范围| ？{pattern} [？] {pattern}匹配的上一行
+
+|：范围| + [num]将[num]添加到前面的行号
+（默认值：1）
+|：范围| -  [num]从前一行中减去[num]
+号码（默认值：1）
+-------------------------------------------------- ----------------------------
+* Q_ex *特殊的Ex字符
+
+|：栏| |分隔两个命令（不适用于“：global”和“：！”）
+|：报价| “开始评论
+
+|：_％| ％当前文件名称（只在需要文件名的地方）
+|：_＃| ＃[num]备用文件名[num]（仅在文件名是
+预期）
+注意：接下来的七个字面输入;这些不是特别的钥匙！
+|：<ABUF> | <abuf>缓冲区号，用于自动命令（仅限于一个
+文件名是预计的）
+|：<afile>不同| <afile>文件名，用于自动命令中（仅限于
+文件名是预计的）
+|：而<amatch> | <amatch>与模式相匹配，用于
+自动命令（只在需要文件名的地方）
+|：<cword> |光标下的单词（仅限于文件名称所在的位置）
+预期）
+|：<cWORD> |光标下的<cWORD> WORD（只有文件名是
+预计）（见| WORD |）
+|：<cfile> |的光标下的<cfile>文件名（仅限文件名为
+预期）
+|：把<sfile> | <sfile>文件中的“：source”d文件的文件名（仅限于
+在那里预期文件名）
+
+在“％”，“＃”，“<cfile>”，“<sfile>”或“<afile>”之后
+| :: P | ：p完整路径
+| :: H | ：h头（文件名被删除）
+| :: T | ：t尾（仅文件名）
+| :: [R | ：r root（扩展删除）
+| :: E | ：电子扩展
+| :: S | ：s / {pat} / {repl} /用{repl}替代{pat}
+-------------------------------------------------- ----------------------------
+* Q_st *启动Vim
+
+| -vim | vim [options]用一个空的缓冲区开始编辑
+| -file | vim [options] {file} ..开始编辑一个或多个文件
+|  -  | vim [options]  - 从stdin读取文件
+| -tag | vim [options] -t {tag}编辑与{tag}关联的文件
+| -qf | vim [options] -q [fname]在QuickFix模式下开始编辑，
+显示第一个错误
+
+最有用的Vim参数（完整列表参见| startup-options |）
+
+|  -  + | + [num]将光标放在行[num]（默认：最后一行）
+|  -  + C |加载文件后执行{{command} execute {command}
+|  -  + / | + / {pat} {file} ..将光标放在第一次出现{pat}
+| -e | -e Ex模式，在Ex模式下启动vim
+| -R | -R只读模式，意味着-n
+| -m | -m修改不允许（重置“写入”选项）
+| -d | -d | diff-mode |
+| -B | -b二进制模式
+| -l | -l lisp模式
+| -A | - 阿拉伯语模式（设置“阿拉伯语”）
+| -F | -F波斯语模式（设置'fkmap'和'rightleft'）
+| -H | -H希伯来模式（'hkmap'和'rightleft'被设置）
+| -V | -V详细，给出信息性的消息
+| -r | -r给出交换文件列表
+| -r | -r {文件} ..恢复中止编辑会话
+| -n | -n不要创建交换文件
+| -o | -o [num]打开[num]窗口（默认：每个文件一个）
+| -s | -s {scriptin}首先从文件{scriptin}中读取命令
+| -w | -w {scriptout}将输入的字符写入文件{scriptout}（追加）
+| -W | -W {scriptout}将输入的字符写入文件{scriptout}（覆盖）
+| -u | -u {vimrc}从{vimrc}中读取inits，而不是其他inits
+| -i | -i {shada}从{shada}中读取信息，而不是其他文件
+| --- | - 选项结束，其他参数是文件名
+| --help | --help显示参数列表并退出
+| --version | - 版本显示版本信息并退出
+|  -  | - 从stdin读取文件
+-------------------------------------------------- ----------------------------
+* Q_ed *编辑文件
+
+没有！：如果对当前缓冲区进行了更改，则失败。
+使用！：放弃对当前缓冲区的任何更改。
+|：edit_f | ：e [dit] [！] {文件}编辑{文件}
+|编辑| ：e [dit] [！]重新加载当前文件
+|：enew | ：ene [w] [！]编辑一个新的未命名的缓冲区
+|：找到| ：fin [d] [！] {file}在'路径'中找到{file}并编辑它
+
+| CTRL- ^ | N CTRL- ^编辑备用文件N（相当于“：e＃N”）
+| GF | gf或] f编辑名称在光标下的文件
+|：PWD | ：pwd打印当前目录名称
+|：CD | ：cd [path]将当前目录更改为[path]
+|：CD-| ：cd  - 回到之前的当前目录
+|：文件| ：f [ile]打印当前文件名和光标
+位置
+|：文件| ：f [ile] {name}将当前文件名设置为{name}
+|：文件| ：文件显示备用文件名称
+-------------------------------------------------- ----------------------------
+* Q_fl *使用参数列表|参数列表|
+
+|：ARGS | ：ar [gs]用当前文件打印参数列表
+在“[]”中
+|：所有| ：all或者：sall为arg列表中的每个文件打开一个窗口
+|：WN | ：wn [ext] [！]写入文件并编辑下一个文件
+|：WN | ：wn [ext] [！] {file}写入{file}并编辑下一个文件，除非
+{文件已存在;用！！覆盖现有的
+文件
+|：WN | ：wN [ext] [！] [file]写入文件并编辑以前的文件
+
+在当前窗口中新窗口〜
+|：参数| ：argu [ment] N：sar [gument] N编辑文件N
+|：下一个| ：n [ext]：sn [ext]编辑下一个文件
+|：next_f | ：n [ext] {arglist}：sn [ext] {arglist}定义新的arg列表
+并编辑第一个文件
+|：下一页| ：N [ext]：sN [ext]编辑上一个文件
+|：第一| ：fir [st]：sfir [st]编辑第一个文件
+|：最后| ：la [st]：sla [st]编辑最后一个文件
+-------------------------------------------------- ----------------------------
+* Q_wq *写作和退出
+
+|：W | ：[范围] w [rite] [！]写入当前文件
+|：w_f | ：[范围] w [rite] {文件}写入{file}，除非它已经存在
+存在
+|：w_f | ：【范围】W [仪式]！ {file}写入{file}。覆盖现有的
+文件
+|：W_A | ：[范围] w [rite] [！] >>附加到当前文件
+|：W_A | ：[范围] w [rite] [！] >> {file}附加到{file}
+|：w_c | ：[range] w [rite]！{cmd}用[range]行作为{cmd}执行
+标准输入
+|：注册| ：如果修改，[范围]向上[日期] [！]写入当前文件
+|：墙| ：wa [ll] [！]写入所有已更改的缓冲区
+
+|：Q | ：q [uit]退出当前缓冲区，除非有更改
+制作;没有其他时退出Vim
+无帮助缓冲区
+|：Q | ：放弃]！总是退出当前缓冲区，丢弃任何
+变化。没有其他时退出Vim
+无帮助缓冲区
+|：QA | ：qa [ll]退出Vim，除非有更改
+|：QA | ：QA [11]！一直退出Vim，放弃任何更改
+|：CQ | ：cq退出而不写入并返回错误代码
+
+|：WQ | ：wq [！]写入当前文件并退出
+|：WQ | ：wq [！] {file}写入{file}并退出
+|：XIT | ：x [it] [！] [文件]如“：wq”，但只有在更改时才写入
+已经制成
+| ZZ | ZZ与“：x”相同
+| ZQ | ZQ与“：q！”相同
+|：xall | ：xa [ll] [！]或者：wqall [！]
+写入所有更改的缓冲区并退出
+
+|：停止| ：st [op] [！]挂起Vim或启动新shell;如果'aw'选项
+被设置并且没有给出[！]写入缓冲区
+| CTRL-Z | CTRL-Z与“：停止”相同
+-------------------------------------------------- ----------------------------
+* Q_ac *自动命令
+
+| shada文件|读取寄存器，标记，启动时的历史记录，退出时保存。
+
+|：rshada | ：rsh [ada] [file]从ShaDa文件[文件]中读取信息
+|：rshada | ：RSH [ADA]！ [文件]同上，覆盖现有的信息
+|：wshada | ：wsh [ada] [文件]将信息添加到ShaDa文件[文件]
+|：wshada | ：WSH [ADA]！ [文件]将信息写入ShaDa文件[文件]
+
+|模式行|编辑文件时自动选项设置
+
+|模式行| vim：{set-arg}：..在第一行和最后一行中
+文件（参见'ml'选项），{set-arg}是
+作为“：set”的参数给出
+
+|自动|自动执行某些事件的命令。
+
+|：自动命令| ：au列出所有自动命令
+|：自动命令| ：au {event}列出{event}的所有自动命令
+|：自动命令| ：au {event} {pat}列出{event}的所有自动命令
+与{pat}
+|：自动命令| ：au {event} {pat} {cmd}为{event}输入新的自动命令
+与{pat}
+|：自动命令| ：AU！删除所有自动命令
+|：自动命令| ：AU！ {event}移除{event}的所有自动命令
+|：自动命令| ：AU！ * {pat}删除{pat}的所有自动命令
+|：自动命令| ：AU！ {event} {pat}删除{event}的所有自动命令
+与{pat}
+|：自动命令| ：AU！ {event} {pat} {cmd}删除{event}的所有自动命令
+与{pat}并输入新的
+-------------------------------------------------- ----------------------------
+* Q_wi *多窗口命令
+
+| CTRL-W_s | CTRL-W s或：将拆分窗口拆分为两部分
+|：split_f | ：分割{文件}拆分窗口并编辑{文件}中的一个
+他们
+|：VSPLIT | ：vsplit {file}相同，但是垂直分割
+|：垂直| ：垂直{cmd}使{cmd}垂直分割
+
+|：sfind | ：sf [ind] {file}拆分窗口，在'path'中找到{file}
+并编辑它
+|：终端| ：终端{cmd}打开一个终端窗口
+| CTRL-W_] | CTRL-W]拆分窗口并跳转到标签下
+光标
+| CTRL-W_f | CTRL-W f拆分窗口并编辑文件名称
+光标
+| CTRL-W_ ^ | CTRL-W ^拆分窗口并编辑替代文件
+| CTRL-W_n | CTRL-W n或：new创建新的空窗口
+| CTRL-W_q | CTRL-W q或：q [uit]退出编辑并关闭窗口
+| CTRL-W_c | CTRL-W c或：cl [ose]使缓冲区隐藏并关闭窗口
+| CTRL-W_o | CTRL-W o或：on [ly]只在当前窗口上显示一个窗口 屏幕
+
+| CTRL-W_j | CTRL-W j将光标移动到下面的窗口
+| CTRL-W_k | CTRL-W k将光标移动到上面的窗口
+| CTRL-W_CTRL-W | CTRL-W CTRL-W将光标移动到下面的窗口（换行）
+| CTRL-W_W | CTRL-W W将光标移动到上方的窗口（换行）
+| CTRL-W_T | CTRL-W t将光标移动到顶部窗口
+| CTRL-W_B | CTRL-W b将光标移动到底部窗口
+| CTRL-W_p | CTRL-W p将光标移到上一个活动窗口
+
+| CTRL-W_r | CTRL-W r向下旋转窗口
+| CTRL-W_R | CTRL-W R向上旋转窗口
+| CTRL-W_x | CTRL-W x与下一个窗口交换当前窗口
+
+| CTRL-W_ = | CTRL-W =使所有窗口的高度和宽度相等
+| CTRL-W_- | CTRL-W  - 减小当前窗口高度
+| CTRL-W_ + | CTRL-W +增加当前窗口高度
+| CTRL-W__ | CTRL-W _设置当前窗口高度（默认值： 很高）
+
+| CTRL-W_ <| CTRL-W <减小当前窗口宽度
+| CTRL-W_> | CTRL-W>增加当前窗口宽度
+| CTRL-W_bar | CTRL-W |设置当前窗口宽度（默认值： 尽可能宽）
+-------------------------------------------------- ----------------------------
+* Q_bu *缓冲区列表命令
+
+|：缓冲区| ：缓冲区或：文件列出所有已知的缓冲区和文件名称
+
+|：球| ：ball或：sball编辑所有参数/缓冲区
+|：取消隐藏| ：取消隐藏或：sunhide编辑所有加载的缓冲区
+
+|：BADD | ：badd {fname}将文件名{fname}添加到列表中
+|：bunload | ：bunload [！] [N]从内存中卸载缓冲区[N]
+|：BDELETE | ：bdelete [！] [N]卸载缓冲区[N]并从中删除
+缓冲区列表
+
+在当前窗口中新窗口〜
+|：缓冲区| ：[N] buffer [N]：[N] sbuffer [N]到arg / buf N
+|：bnext编辑| ：[N] bnext [N]：[N] sbnext [N]到第N个下一个arg / buf
+|：bnext编辑| ：[N] bNext [N]：[N] sbNext [N]到前一个arg / buf的第N个
+|：bprevious | ：[N] bprevious [N]：[N] sbprevious [N] to Nth previous arg / buf
+|：bfirst编辑| ：bfirst：sbfirst to first arg / buf
+|：爆炸| ：爆炸：爆发到最后的arg / buf
+|：bmodified | ：[N] bmod [N]：[N] sbmod [N]到第N个修改的buf
+-------------------------------------------------- ----------------------------
+* Q_sy *语法高亮
+
+|：SYN-ON | ：使用语法高亮显示的语法
+|：SYN-OFF | ：语法关闭使用语法高亮停止
+
+|：SYN-关键字| ：语法关键字{组名} {关键字} ..
+添加一个语法关键字项目
+|：SYN-比赛| ：syntax match {group-name} {pattern} ...
+添加语法匹配项
+|：SYN-区| ：syntax region {group-name} {pattern} ...
+添加语法区域项目
+|：SYN同步| ：语法同步[ccomment |行{N} | ...]
+告诉语法如何同步
+|：语法| ：语法[list]列出当前语法项目
+|：SYN-清晰| ：语法清除清除所有语法信息
+
+|：亮点| ：突出清除所有突出显示的信息
+|：亮点| ：highlight {group-name} {key} = {arg} ..
+为{group-name}设置突出显示
+
+|：文件类型| ：filetype开启文件类型检测，无
+语法高亮
+|：文件类型| ：文件类型插件缩进
+打开文件类型检测
+自动缩进和设置
+-------------------------------------------------- ----------------------------
+* Q_gu * GUI命令
+
+|：菜单| ：菜单列出所有菜单
+|：菜单| ：菜单{mpath}以{mpath}开头的列表菜单
+|：菜单| ：菜单{mpath} {rhs}添加菜单{mpath}，给{rhs}
+|：菜单| ：菜单{pri} {mpath} {rhs}
+同样，优先权{pri}
+|：菜单| ：menu ToolBar。{name} {rhs}
+添加工具栏项，给{rhs}
+|：tmenu | ：tmenu {mpath} {text}将工具提示添加到菜单{mpath}
+|：的umenu | ：unmenu {mpath}删除菜单{mpath}
+-------------------------------------------------- ----------------------------
+* Q_fo *折叠
+
+| '使用foldmethod' |设置foldmethod =手动手动折叠
+设置foldmethod =通过缩进折叠缩进
+set foldmethod = expr折叠'foldexpr'
+设置foldmethod =句法区域的语法折叠
+set foldmethod =标记折叠'foldmarker'
+
+| ZF | zf {运动}运算符：手动定义折叠
+|：折| ：{range}为{range}行定义折叠
+| ZD | zd在光标下删除一个折叠
+| ZD | zD删除光标下的所有折叠
+
+| ZO | zo在光标下打开一个折叠
+|的z0 | zO打开光标下的所有折叠
+| ZC | zc在光标下关闭一圈
+| zC循环| zC关闭光标下的所有折叠
+
+| ZM | zm折叠更多：减少'foldlevel'
+| ZM | zM关闭所有折叠：使'foldlevel'为零
+| ZR | zr减少折叠：增加'foldlevel'
+| ZR | zR打开所有折叠：使'foldlevel'最大。
+
+|锌| zn fold none：重置'可折叠'
+| ZN | zN fold normal set'foldenable'
+|子| zi翻译'可折叠'
+
+ VIM：TW = 78：TS = 8：FT =帮助：norl：
