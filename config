@@ -1,0 +1,13 @@
+Host github
+   User arstum@qq.com
+   Hostname git.github.com
+   PreferredAuthentications publickey
+   IdentityFile ~/.ssh/github
+   IdentitiesOnly yes
+
+Host coding
+   User arstum@qq.com
+   Hostname git.coding.com
+   PreferredAuthentications publickey
+   IdentityFile ~/.ssh/coding
+   IdentitiesOnly yes
